@@ -11,9 +11,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install Build Tools
-        run: |
-          pip3 install --upgrade cmake ninja west
       - name: Cache west modules
         uses: actions/cache@v4
         env:
@@ -36,6 +33,16 @@ jobs:
         run: west update
       - name: West Zephyr export
         run: west zephyr-export
+      - name: Setup CMake (>=3.20)
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: '3.25.3'
+      - name: Verify CMake path & version (debug)
+        run: |
+          echo "PATH=$PATH"
+          which cmake || true
+          cmake --version
+          python -c "import shutil; print('shutil.which(cmake)=', shutil.which('cmake'))"
       - name: West Build (KEYBOARD_TITLE)
         run: west build -s zmk/app -b BOARD_NAME -- -DSHIELD=SHIELD_NAME -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: KEYBOARD_TITLE DTS File
