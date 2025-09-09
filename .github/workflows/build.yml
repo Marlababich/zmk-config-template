@@ -42,7 +42,7 @@ jobs:
           echo "PATH=$PATH"
           which cmake || true
           cmake --version
-          python -c "import shutil; print('shutil.which(cmake)=', shutil.which('cmake'))"
+          python3 -c "import shutil; print('shutil.which(\"cmake\")=', shutil.which('cmake'))"
       - name: West Build (KEYBOARD_TITLE)
         run: west build -s zmk/app -b BOARD_NAME -- -DSHIELD=SHIELD_NAME -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: KEYBOARD_TITLE DTS File
