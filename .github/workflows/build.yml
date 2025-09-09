@@ -45,7 +45,7 @@ jobs:
           python3 -c "import shutil; print('shutil.which(\"cmake\")=', shutil.which('cmake'))"
       - name: Upgrade west
         run: |
-          pip3 install --upgrade west
+          /usr/bin/python3 -m pip install --upgrade west 
           west --version
       - name: West Build (KEYBOARD_TITLE)
         run: west build -s zmk/app -b BOARD_NAME -- -DSHIELD=SHIELD_NAME -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
